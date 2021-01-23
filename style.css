@@ -12,12 +12,13 @@ aside {
     float: left;
 }
 
-.card {
+#city-search {
     padding: 10px;
     background-color: whitesmoke;
+    height: 500px;
 }
 
-p{
+p {
     font-weight: bold;
 }
 
@@ -27,8 +28,16 @@ section {
     float: left;
 }
 
+h3 {
+    padding: 15px;
+}
+
 #weather {
     border: 2px solid whitesmoke;
     width: 950px;
     height: 300px;
+}
+
+#forecast img {
+    padding: 5px 10px;
 }
