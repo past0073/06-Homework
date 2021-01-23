@@ -17,10 +17,10 @@
 
         <aside id="city-search" class="card" style="width: 18rem;">
             <p>Search for a City:</p>
-            <form class="example" action="action_page.php">
+            <div>
                 <input id="cityName" type="text" placeholder="Search.." name="search">
                 <button id="search-btn" type="submit"><i class="fa fa-search"></i></button>
-              </form>
+            </div>
             <br>
             <ul class="list-group">
                 <li class="list-group-item">Dapibus ac facilisis in</li>
@@ -44,13 +44,15 @@
         </section>
     </div>
     <script>
-        cityName = $("#cityName").val().trim();
-
-        APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
-        queryURL = "api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey
+        
 
         $("#search-btn").on("click", function(){
-            event.preventDefault();
+            cityName = $("#cityName").val().trim();
+        console.log(cityName);
+
+        APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
+        queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey
+            // event.preventDefault();
             $.ajax({
                 method: "GET",
                 url: queryURL,
