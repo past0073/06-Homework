@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
 
+    
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poller+One&display=swap" rel="stylesheet">
@@ -43,21 +45,43 @@
             </div>
         </section>
     </div>
+    
     <script>
         
-
+        
         $("#search-btn").on("click", function(){
             cityName = $("#cityName").val().trim();
-        console.log(cityName);
+        
 
-        APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
-        queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey
-            // event.preventDefault();
+            APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
+            queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey
+            
             $.ajax({
                 method: "GET",
                 url: queryURL,
             }).then(function(response) {
                 console.log(response);
+                $("#weather").empty();
+                //Create a div for the city name and current date to display
+                cityName = (response.name);
+                currentDate = moment().format("MMM Do YYYY");  
+                console.log(name);
+                nameDiv = $("<h3>");
+                nameDiv.append(cityName + " (" + currentDate + ")");
+                $("#weather").prepend(nameDiv);
+                //Create a div for the temperature to display
+                tempF = ((response.main.temp - 273.15) * 1.8) + 32;
+                temp = tempF.toFixed(1);
+                tempDiv = $("<div>");
+                tempDiv.append("Temperature: " + temp + " &#8457;");
+                $("#weather").append(tempDiv);
+                //Create a div for the humidity
+                humidity = (response.main.humidity);
+                console.log(humidity);
+                humidDiv = $("<div>");
+                humidDiv.append("Humidity: " + humidity + "&#37;");
+                $("#weather").append(humidDiv);
+                
             }
             )});
     </script>
