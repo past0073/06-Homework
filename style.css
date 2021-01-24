@@ -39,8 +39,16 @@ section {
     padding: 5px;
 }
 
-span {
+.high {
     background-color: red;
+}
+
+.moderate {
+    background-color: orange;
+}
+
+.low {
+    background-color: green;
 }
 
 #forecast {

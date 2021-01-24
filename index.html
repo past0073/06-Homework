@@ -87,7 +87,7 @@
                 windDiv.append("Wind speed: " + windSpeed + " MPH");
                 $("#weather").append(windDiv);
 
-            //Second ajax call for additional OpenWeather API
+            //Second ajax call for OpenWeather UV Index API
             APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
             lat = (response.coord.lat)
             lon = (response.coord.lon)
@@ -99,7 +99,19 @@
             }).then(function(response) {
                UVindex = (response.value)
                uvDiv = $("<div>");
-               uvDiv.html("UV Index: " + "<span>" + UVindex + "</span>");
+               uvDiv.append("UV Index: "); 
+               uvspan = $("<span>");
+               uvspan.append(UVindex); 
+               uvDiv.append(uvspan); 
+               if (UVindex < 3) {
+                    uvspan.attr("class", "low");
+                }
+                else if (UVindex > 6) {
+                    uvspan.attr("class", "high")
+                }
+                else {
+                    uvspan.attr("class", "moderate")
+                }
                $("#weather").append(uvDiv);
                })
             //Third ajax call for 5 day forecast from OpenWeather API
