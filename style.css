@@ -31,7 +31,7 @@ section {
 #weather {
     border: 2px solid whitesmoke;
     width: 950px;
-    height: 295px;
+    height: 250px;
     padding: 15px;
 }
 
@@ -39,21 +39,27 @@ section {
     padding: 5px;
 }
 
+span {
+    background-color: red;
+}
+
+#forecast {
+    margin: 10px;
+}
+
 #forecast div {
+    margin: 10px;
     padding: 5px 10px;
     color: white;
     background-color: blue;
     height: 175px;
     width: 150px;
+    float: left;
+    line-height: 2.5;
 }
 
 #weatherEl {
     height: 10px;
     width: 10px;
     float: left;
-
-}
-
-span {
-    background-color: red;
 }
