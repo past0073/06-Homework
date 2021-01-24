@@ -64,11 +64,17 @@
                 $("#weather").empty();
                 //Create a div for the city name and current date to display
                 cityName = (response.name);
-                currentDate = moment().format("MMM Do YYYY");  
-                console.log(name);
+                currentDate = moment().format('l'); 
                 nameDiv = $("<h3>");
                 nameDiv.append(cityName + " (" + currentDate + ")");
                 $("#weather").prepend(nameDiv);
+                //Add icon after date
+                weatherIcon = (response.weather[0].icon);
+                iconURL = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
+                console.log(iconURL);
+                weatherEl = $("<img>");
+                weatherEl.attr("src", iconURL);
+                nameDiv.append(weatherEl);
                 //Create a div for the temperature to display
                 tempF = ((response.main.temp - 273.15) * 1.8) + 32;
                 temp = tempF.toFixed(1);
@@ -77,11 +83,41 @@
                 $("#weather").append(tempDiv);
                 //Create a div for the humidity
                 humidity = (response.main.humidity);
-                console.log(humidity);
                 humidDiv = $("<div>");
                 humidDiv.append("Humidity: " + humidity + "&#37;");
                 $("#weather").append(humidDiv);
-                
+                //Create a div for the wind speed
+                windSpeed = (response.wind.speed);
+                windDiv = $("<div>");
+                windSpeed = (windSpeed * 2.237).toFixed(1);
+                windDiv.append("Wind speed: " + windSpeed + " MPH");
+                $("#weather").append(windDiv);
+
+            //Second ajax call for additional OpenWeather API
+            APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
+            lat = (response.coord.lat)
+            lon = (response.coord.lon)
+            queryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey
+            
+            $.ajax({
+                method: "GET",
+                url: queryURL,
+            }).then(function(response) {
+               UVindex = (response.value)
+               uvDiv = $("<div>");
+               uvDiv.html("UV Index: " + "<span>" + UVindex + "</span>");
+               $("#weather").append(uvDiv);
+               })
+            //Third ajax call for 5 day forecast from OpenWeather API
+            APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
+            queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey
+            
+            $.ajax({
+                method: "GET",
+                url: queryURL,
+            }).then(function(response) {
+               
+               })
             }
             )});
     </script>
