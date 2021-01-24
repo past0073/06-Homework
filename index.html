@@ -33,15 +33,11 @@
         </aside>
         <section>
             <div id="weather">
-                <h3 id=currentCity>placeholder text</h3>
+                <h3 id=currentCity></h3>
             </div> 
             <div id="forecast">
                 <h4>5-Day Forecast:</h4>
-                <img src="https://via.placeholder.com/150">
-                <img src="https://via.placeholder.com/150">
-                <img src="https://via.placeholder.com/150">
-                <img src="https://via.placeholder.com/150">
-                <img src="https://via.placeholder.com/150">
+
             </div>
         </section>
     </div>
@@ -60,7 +56,6 @@
                 method: "GET",
                 url: queryURL,
             }).then(function(response) {
-                console.log(response);
                 $("#weather").empty();
                 //Create a div for the city name and current date to display
                 cityName = (response.name);
@@ -71,7 +66,6 @@
                 //Add icon after date
                 weatherIcon = (response.weather[0].icon);
                 iconURL = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
-                console.log(iconURL);
                 weatherEl = $("<img>");
                 weatherEl.attr("src", iconURL);
                 nameDiv.append(weatherEl);
@@ -116,6 +110,31 @@
                 method: "GET",
                 url: queryURL,
             }).then(function(response) {
+                $("#forecast").empty();
+                forecastHeader = $("<h3>");
+                forecastHeader.html("5-Day Forecast:");
+                $("#forecast").append(forecastHeader);
+                // temp = response.list[i].main.temp
+                // humidity = response.list[i].main.humidity
+                // days = response.list
+             fivedayArray = (response.list[3], response.list[11], response.list[19], response.list[27], response.list[35])
+
+                firstdayEl = $("<div>");
+                headOne = $("<h4>")
+                headOne.html(moment().add(1, 'days').format('l') + ("<br>"));  
+                firstdayEl.append(headOne);
+                weatherIcon = (response.list[3].weather.icon);
+                weatherEl = $("<img>");
+                weatherEl.attr("src", iconURL);
+                firstdayEl.append(weatherEl);
+                firstdayEl.append("<br>");
+                temp = ((response.list[3].main.temp - 273.15) * 1.8 + 32).toFixed(1);
+                firstdayEl.append("Temp: " + temp + " &#8457;" + ("<br>"));
+                humidity = (response.list[3].main.humidity);
+                firstdayEl.append("Humidity: " + humidity + "&#37;");
+                $("#forecast").append(firstdayEl);
+
+
                
                })
             }
