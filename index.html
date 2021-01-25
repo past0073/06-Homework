@@ -24,12 +24,9 @@
                 <button id="search-btn" type="submit"><i class="fa fa-search"></i></button>
             </div>
             <br>
-            <ul class="list-group">
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-              </ul>
+            <ul id="cityHistory" class="list-group">
+              
+            </ul>
         </aside>
         <section>
             <div id="weather">
@@ -46,9 +43,27 @@
         
         
         $("#search-btn").on("click", function(){
-            cityName = $("#cityName").val().trim();
-        
+            event.preventDefault();
+            theWholeThing();
 
+            cityName = $("#cityName").val().trim();
+            localStorage.setItem("citySearch", cityName);
+            searchedCities = localStorage.getItem("citySearch");
+            searchEl = $("<li>");
+            searchEl.addClass("list-group-item");
+            searchEl.append(searchedCities);
+            $("#cityHistory").prepend(searchEl);
+
+            //WIP!!! It's pulling the most recent search
+            searchEl.on("click", function (){
+                event.preventDefault();
+                $("#cityName").val($(this).html());
+                theWholeThing();
+            });
+
+            function theWholeThing(){
+                event.preventDefault();
+            cityName = $("#cityName").val().trim();
             APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
             queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey
             
@@ -205,10 +220,10 @@
                 $("#forecast").append(fivedayEl);
 
 
-               
+                
                })
             }
-            )});
+            )}});
     </script>
     
 </body>
