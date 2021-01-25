@@ -40,10 +40,15 @@
     </div>
     
     <script>
-        
-        
-        $("#search-btn").on("click", function(){
+        rendersavedSearches();
+
+       
+
+        $("#search-btn").on("click", function() {
             event.preventDefault();
+            savedSearches.push($("#cityName").val());
+            console.log(savedSearches);
+            localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
             theWholeThing();
 
             cityName = $("#cityName").val().trim();
@@ -54,7 +59,7 @@
             searchEl.append(searchedCities);
             $("#cityHistory").prepend(searchEl);
 
-            //WIP!!! It's pulling the most recent search
+            //Add event listeners to previous searches
             searchEl.on("click", function (){
                 event.preventDefault();
                 $("#cityName").val($(this).html());
@@ -224,6 +229,17 @@
                })
             }
             )}});
+
+            function rendersavedSearches(){
+            savedSearches = [];
+            for (i=0; i<savedSearches.length; i++) {
+                savedSearches[i] = getItem(JSON.parse(savedSearches));
+                searchEl = $("<li>");
+                searchEl.addClass("list-group-item");
+                searchEl.append(savedSearches[i]);
+                $("#cityHistory").prepend(searchEl);
+            }
+        }
     </script>
     
 </body>
