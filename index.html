@@ -40,23 +40,38 @@
     </div>
     
     <script>
-        rendersavedSearches();
+        function rendersavedSearches(){
+            retrievedArray = localStorage.getItem("savedSearches");
 
-       
+            for (i=0; i<retrievedArray.length; i++) {
+            retrievedArray[i] = localStorage.getItem("savedSearches");
+            searchEl = $("<li>");
+            searchEl.addClass("list-group-item");
+            searchEl.append(retrievedArray[i]);
+            $("#cityHistory").prepend(searchEl);
+        }}
+        savedSearches = [];   
 
         $("#search-btn").on("click", function() {
             event.preventDefault();
-            savedSearches.push($("#cityName").val());
-            console.log(savedSearches);
-            localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-            theWholeThing();
 
+            //Save the array to local storage
+            // localStorage.setItem("savedSearches", savedSearches);
+            theWholeThing();
+            //Set variable to retrieve savedsearches array
+            
             cityName = $("#cityName").val().trim();
+            //Save each searched city to local storage
             localStorage.setItem("citySearch", cityName);
-            searchedCities = localStorage.getItem("citySearch");
+                //Push searched cities into an array
+                savedSearches.push(cityName);
+                console.log(savedSearches);
+
+
+            //Populating previous searches in the div below
             searchEl = $("<li>");
             searchEl.addClass("list-group-item");
-            searchEl.append(searchedCities);
+            searchEl.append(cityName);
             $("#cityHistory").prepend(searchEl);
 
             //Add event listeners to previous searches
@@ -224,22 +239,24 @@
                 fivedayEl.append("Humidity: " + humidity + "&#37;");
                 $("#forecast").append(fivedayEl);
 
-
-                
+            //Saving the array to local storage
+            localStorage.setItem("savedSearches", savedSearches);
+            //creating a variable to pull back from local storage
+        
                })
             }
             )}});
 
-            function rendersavedSearches(){
-            savedSearches = [];
-            for (i=0; i<savedSearches.length; i++) {
-                savedSearches[i] = getItem(JSON.parse(savedSearches));
-                searchEl = $("<li>");
-                searchEl.addClass("list-group-item");
-                searchEl.append(savedSearches[i]);
-                $("#cityHistory").prepend(searchEl);
-            }
-        }
+            // function rendersavedSearches(){
+
+            // for (i=0; i<retrievedArray.length; i++) {
+            // searchEl = $("<li>");
+            // searchEl.addClass("list-group-item");
+            // searchEl.append(retrievedArray[i]);
+            // $("#cityHistory").prepend(searchEl);
+            // }
+            // }
+           
     </script>
     
 </body>
