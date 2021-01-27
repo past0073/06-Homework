@@ -40,7 +40,8 @@
     </div>
     
     <script>
-        function rendersavedSearches(){
+         savedSearches = [];   
+         function rendersavedSearches(){
             retrievedArray = localStorage.getItem("savedSearches");
 
             for (i=0; i<retrievedArray.length; i++) {
@@ -49,9 +50,8 @@
             searchEl.addClass("list-group-item");
             searchEl.append(retrievedArray[i]);
             $("#cityHistory").prepend(searchEl);
-        }}
-        savedSearches = [];   
-
+        }}    
+       
         $("#search-btn").on("click", function() {
             event.preventDefault();
 
@@ -242,20 +242,15 @@
             //Saving the array to local storage
             localStorage.setItem("savedSearches", savedSearches);
             //creating a variable to pull back from local storage
-        
+
+
                })
+               
             }
-            )}});
+            )
+            rendersavedSearches();
+        }});
 
-            // function rendersavedSearches(){
-
-            // for (i=0; i<retrievedArray.length; i++) {
-            // searchEl = $("<li>");
-            // searchEl.addClass("list-group-item");
-            // searchEl.append(retrievedArray[i]);
-            // $("#cityHistory").prepend(searchEl);
-            // }
-            // }
            
     </script>
     
