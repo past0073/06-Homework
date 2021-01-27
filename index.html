@@ -42,15 +42,15 @@
     <script>
          savedSearches = [];   
          function rendersavedSearches(){
-            retrievedArray = localStorage.getItem("savedSearches");
+            retrievedArray = localStorage.getItem("citySearch");
 
             for (i=0; i<retrievedArray.length; i++) {
-            retrievedArray[i] = localStorage.getItem("savedSearches");
+            retrievedArray[i] = localStorage.getItem("citySearch");
             searchEl = $("<li>");
             searchEl.addClass("list-group-item");
-            searchEl.append(retrievedArray[i]);
-            $("#cityHistory").prepend(searchEl);
-        }}    
+        }
+         $("#cityHistory").append(searchEl);
+    }    
        
         $("#search-btn").on("click", function() {
             event.preventDefault();
@@ -62,11 +62,9 @@
             
             cityName = $("#cityName").val().trim();
             //Save each searched city to local storage
-            localStorage.setItem("citySearch", cityName);
+            // localStorage.setItem("citySearch", cityName);
                 //Push searched cities into an array
                 savedSearches.push(cityName);
-                console.log(savedSearches);
-
 
             //Populating previous searches in the div below
             searchEl = $("<li>");
@@ -241,8 +239,6 @@
 
             //Saving the array to local storage
             localStorage.setItem("savedSearches", savedSearches);
-            //creating a variable to pull back from local storage
-
 
                })
                
