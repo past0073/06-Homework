@@ -42,6 +42,7 @@
     <script>
          savedSearches = [];   
          function rendersavedSearches(){
+             
             retrievedArray = localStorage.getItem("citySearch");
 
             for (i=0; i<retrievedArray.length; i++) {
@@ -50,21 +51,16 @@
             searchEl.addClass("list-group-item");
         }
          $("#cityHistory").append(searchEl);
-    }    
+        };    
        
         $("#search-btn").on("click", function() {
             event.preventDefault();
 
-            //Save the array to local storage
-            // localStorage.setItem("savedSearches", savedSearches);
             theWholeThing();
-            //Set variable to retrieve savedsearches array
             
             cityName = $("#cityName").val().trim();
-            //Save each searched city to local storage
-            // localStorage.setItem("citySearch", cityName);
-                //Push searched cities into an array
-                savedSearches.push(cityName);
+
+            savedSearches.push(cityName);
 
             //Populating previous searches in the div below
             searchEl = $("<li>");
@@ -239,13 +235,18 @@
 
             //Saving the array to local storage
             localStorage.setItem("savedSearches", savedSearches);
+            rendersavedSearches();
 
                })
                
             }
             )
-            rendersavedSearches();
-        }});
+            
+        }
+    // rendersavedSearches();
+    }
+    
+    );
 
            
     </script>
