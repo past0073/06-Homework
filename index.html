@@ -43,10 +43,10 @@
          savedSearches = [];   
          function rendersavedSearches(){
              
-            retrievedArray = localStorage.getItem("citySearch");
+            retrievedArray = JSON.parse(localStorage.getItem("savedSearches"));
 
             for (i=0; i<retrievedArray.length; i++) {
-            retrievedArray[i] = localStorage.getItem("citySearch");
+            retrievedArray[i] = localStorage.getItem("savedSearches");
             searchEl = $("<li>");
             searchEl.addClass("list-group-item");
         }
@@ -234,8 +234,8 @@
                 $("#forecast").append(fivedayEl);
 
             //Saving the array to local storage
-            localStorage.setItem("savedSearches", savedSearches);
-            rendersavedSearches();
+            localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
+            // rendersavedSearches();
 
                })
                
@@ -247,7 +247,7 @@
     }
     
     );
-
+// rendersavedSearches();
            
     </script>
     
