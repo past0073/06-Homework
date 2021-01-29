@@ -1,6 +1,6 @@
 # 06-Homework
 
-This is a weather dashboard assignment that allows the user to input various cities to check the current, or five day forecast and view various weather conditions. The cities they searched are saved in the div below, and the user can click back to those cities to be redirected to that city's weather.
+This is a weather dashboard assignment that allows the user to input various cities to check the current, or five day forecast and view various weather conditions. The cities they searched are saved in the div below, and the user can click back to those cities to be redirected to that city's weather. The user can also return to this webpage at a later date to see their saved searches again!
 
 Screenshots:
 
