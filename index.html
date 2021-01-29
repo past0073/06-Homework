@@ -40,11 +40,10 @@
     </div>
     
     <script>
-         savedSearches = [];   
-         function rendersavedSearches(){
-             
-            retrievedArray = JSON.parse(localStorage.getItem("savedSearches"));
+         var savedSearches = [];  
 
+        function rendersavedSearches(){
+            retrievedArray = JSON.parse(localStorage.getItem("savedSearches"));
             for (i=0; i<retrievedArray.length; i++) {
             retrievedArray[i] = localStorage.getItem("savedSearches");
             searchEl = $("<li>");
@@ -52,6 +51,7 @@
         }
          $("#cityHistory").append(searchEl);
         };    
+
        
         $("#search-btn").on("click", function() {
             event.preventDefault();
@@ -76,7 +76,9 @@
             });
 
             function theWholeThing(){
-                event.preventDefault();
+
+            event.preventDefault();
+            //First ajax call for OpenWeather API weather by location
             cityName = $("#cityName").val().trim();
             APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
             queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey
@@ -86,29 +88,34 @@
                 url: queryURL,
             }).then(function(response) {
                 $("#weather").empty();
+
                 //Create a div for the city name and current date to display
                 cityName = (response.name);
                 currentDate = moment().format('l'); 
                 nameDiv = $("<h3>");
                 nameDiv.append(cityName + " (" + currentDate + ")");
                 $("#weather").prepend(nameDiv);
+
                 //Add icon after date
                 weatherIcon = (response.weather[0].icon);
                 iconURL = "http://openweathermap.org/img/w/" + weatherIcon + ".png";
                 weatherEl = $("<img>");
                 weatherEl.attr("src", iconURL);
                 nameDiv.append(weatherEl);
+
                 //Create a div for the temperature to display
                 tempF = ((response.main.temp - 273.15) * 1.8) + 32;
                 temp = tempF.toFixed(1);
                 tempDiv = $("<div>");
                 tempDiv.append("Temperature: " + temp + " &#8457;");
                 $("#weather").append(tempDiv);
+
                 //Create a div for the humidity
                 humidity = (response.main.humidity);
                 humidDiv = $("<div>");
                 humidDiv.append("Humidity: " + humidity + "&#37;");
                 $("#weather").append(humidDiv);
+
                 //Create a div for the wind speed
                 windSpeed = (response.wind.speed);
                 windDiv = $("<div>");
@@ -132,6 +139,7 @@
                uvspan = $("<span>");
                uvspan.append(UVindex); 
                uvDiv.append(uvspan); 
+               //Add class that will change color of the UV index dependent upon it's severity
                if (UVindex < 3) {
                     uvspan.attr("class", "low");
                 }
@@ -143,6 +151,7 @@
                 }
                $("#weather").append(uvDiv);
                })
+
             //Third ajax call for 5 day forecast from OpenWeather API
             APIkey = "0e6e51c7b5cd8f3a0f8ccffef0a8bb5b"
             queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey
@@ -155,8 +164,7 @@
                 forecastHeader = $("<h3>");
                 forecastHeader.html("5-Day Forecast:");
                 $("#forecast").append(forecastHeader);
-
-             fivedayArray = (response.list[3], response.list[11], response.list[19], response.list[27], response.list[35])
+                
                 //Day 1 
                 firstdayEl = $("<div>");
                 headOne = $("<h4>")
@@ -172,6 +180,7 @@
                 humidity = (response.list[3].main.humidity);
                 firstdayEl.append("Humidity: " + humidity + "&#37;");
                 $("#forecast").append(firstdayEl);
+
                 //Day 2
                 seconddayEl = $("<div>");
                 headTwo = $("<h4>")
@@ -187,7 +196,8 @@
                 humidity = (response.list[11].main.humidity);
                 seconddayEl.append("Humidity: " + humidity + "&#37;");
                 $("#forecast").append(seconddayEl);
-                 //Day 3
+
+                //Day 3
                 thirddayEl = $("<div>");
                 headThree = $("<h4>")
                 headThree.html(moment().add(3, 'days').format('l') + ("<br>"));  
@@ -202,6 +212,7 @@
                 humidity = (response.list[19].main.humidity);
                 thirddayEl.append("Humidity: " + humidity + "&#37;");
                 $("#forecast").append(thirddayEl);
+
                 //Day 4
                 fourdayEl = $("<div>");
                 headFour = $("<h4>")
@@ -217,6 +228,7 @@
                 humidity = (response.list[27].main.humidity);
                 fourdayEl.append("Humidity: " + humidity + "&#37;");
                 $("#forecast").append(fourdayEl);
+
                 //Day 5
                 fivedayEl = $("<div>");
                 headFive = $("<h4>")
@@ -233,22 +245,15 @@
                 fivedayEl.append("Humidity: " + humidity + "&#37;");
                 $("#forecast").append(fivedayEl);
 
-            //Saving the array to local storage
+            //Saving the array to local storage & creating a variable to call it back
             localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-            // rendersavedSearches();
-
-               })
+            retrievedArray = JSON.parse(localStorage.getItem("savedSearches"));               
+            })
                
-            }
-            )
-            
-        }
-    // rendersavedSearches();
-    }
-    
-    );
-// rendersavedSearches();
-           
+            })}
+   
+            });
+     
     </script>
     
 </body>
